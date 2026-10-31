@@ -197,22 +197,23 @@ section{position:relative}
 @media(min-width:700px){.creed li{grid-template-columns:4.5rem 1fr;gap:0 2rem;padding-block:2.2rem}}
 
 /* ---- The Uniform ---- */
-.plates{display:grid;gap:1.1rem;grid-template-columns:1fr}
-@media(min-width:760px){.plates{grid-template-columns:repeat(3,1fr);gap:1.4rem}.plate:nth-child(2){margin-top:3rem}}
+.plate-group+.plate-group{margin-top:clamp(3rem,7vw,4.5rem)}
+.plate-group{max-width:46rem;margin-inline:auto}
+.group-label{display:flex;align-items:center;gap:1.2rem;margin-bottom:1.3rem;font-family:var(--f-head);font-size:.74rem;letter-spacing:.34em;text-transform:uppercase;color:var(--c-ivory)}
+.group-label::after{content:"";flex:1;height:3px;background:var(--c-accent);clip-path:polygon(0 50%,100% 0,100% 100%);opacity:.9}
+.plates{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+@media(min-width:640px){.plates{gap:1.3rem}}
 .plate{position:relative;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--c-line);background:#050505;isolation:isolate}
-/* Placeholder: moody high-contrast B&W lighting. Drop <img> into .plate to replace. */
-.plate::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:
-   radial-gradient(ellipse 55% 42% at var(--lx,30%) 22%,rgba(238,225,207,.2),transparent 70%),
-   radial-gradient(ellipse 70% 50% at 60% 100%,rgba(238,225,207,.08),transparent 70%),
-   linear-gradient(165deg,#1d1d20,#060607 70%)}
-.plate:nth-child(2){--lx:70%}
-.plate:nth-child(3){--lx:45%}
-.plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.9);z-index:-1}
-.plate figcaption{position:absolute;inset:auto 0 0 0;padding:1.4rem 1.3rem;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;
-  background:linear-gradient(transparent,rgba(0,0,0,.85));font-family:var(--f-head);text-transform:uppercase}
-.plate .pn{font-size:.78rem;letter-spacing:.3em}
-.plate .ps{font-family:var(--f-body);font-size:.66rem;letter-spacing:.2em;color:var(--c-mute)}
+.plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;z-index:-1;
+  /* quiet grade: cools the warm skin tones so the four shots sit together on the black page */
+  filter:saturate(.88) contrast(1.06) brightness(.98)}
+/* shared vignette: unifies the men's (gym backdrop) and women's (flat black) shots */
+.plate::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 85% 75% at 50% 40%,transparent 60%,rgba(0,0,0,.45)),linear-gradient(transparent 62%,rgba(0,0,0,.82))}
+.plate figcaption{position:absolute;inset:auto 0 0 0;z-index:1;padding:clamp(.8rem,2.5vw,1.4rem);display:flex;flex-direction:column;gap:.25rem;
+  font-family:var(--f-head);text-transform:uppercase}
+.plate .pn{font-size:clamp(.6rem,1.9vw,.78rem);letter-spacing:.3em}
+.plate .ps{font-family:var(--f-body);font-size:clamp(.56rem,1.6vw,.66rem);letter-spacing:.18em;color:rgba(238,225,207,.7)}
 .uniform .lead{max-width:34rem;margin:-1.6rem auto clamp(3rem,6vw,4.5rem);text-align:center;color:rgba(238,225,207,.78)}
 .uniform .coda{margin-top:clamp(2.5rem,5vw,3.5rem);text-align:center;font-family:var(--f-head);font-size:.74rem;letter-spacing:.34em;padding-left:.34em;text-transform:uppercase;color:var(--c-mute)}
 
@@ -396,12 +397,34 @@ section{position:relative}
     </div>
     <p class="lead reveal">It's how members recognize each other — across a gym floor, a city street, a crowded start line. Worn quietly. Understood instantly.</p>
 
-    <!-- Placeholder plates. To use a real photo, add <img src="img/plate-1.jpg" alt="…"> as the first child. -->
-    <div class="plates">
-      <figure class="plate reveal"><figcaption><span class="pn">Plate I</span><span class="ps">Photography to come</span></figcaption></figure>
-      <figure class="plate reveal d1"><figcaption><span class="pn">Plate II</span><span class="ps">Photography to come</span></figcaption></figure>
-      <figure class="plate reveal d2"><figcaption><span class="pn">Plate III</span><span class="ps">Photography to come</span></figcaption></figure>
+    <div class="plate-group reveal">
+      <p class="group-label">Men's</p>
+      <div class="plates">
+        <figure class="plate">
+          <img src="img/uniform-mens-front.webp" width="1024" height="1536" loading="lazy" decoding="async" alt="A man in a black sleeveless tee printed with the Society of Strength wordmark, head bowed, hands in his pockets.">
+          <figcaption><span class="pn">Plate I</span><span class="ps">The Wordmark</span></figcaption>
+        </figure>
+        <figure class="plate">
+          <img src="img/uniform-mens-back.webp" width="1086" height="1448" loading="lazy" decoding="async" alt="The same sleeveless tee from behind, with the small ivory and oxblood SS monogram between the shoulder blades.">
+          <figcaption><span class="pn">Plate II</span><span class="ps">The Handshake</span></figcaption>
+        </figure>
+      </div>
     </div>
+
+    <div class="plate-group reveal">
+      <p class="group-label">Women's</p>
+      <div class="plates">
+        <figure class="plate">
+          <img src="img/uniform-womens-front.webp" width="1024" height="1536" loading="lazy" decoding="async" alt="A smiling woman looking over her shoulder in a black racerback top printed with the Society of Strength wordmark.">
+          <figcaption><span class="pn">Plate III</span><span class="ps">The Wordmark</span></figcaption>
+        </figure>
+        <figure class="plate">
+          <img src="img/uniform-womens-back.webp" width="1024" height="1536" loading="lazy" decoding="async" alt="The same racerback top from behind, with the small ivory and oxblood SS monogram between the shoulder blades.">
+          <figcaption><span class="pn">Plate IV</span><span class="ps">The Handshake</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
     <p class="coda reveal">Arriving August 2026</p>
   </div>
 </section>
