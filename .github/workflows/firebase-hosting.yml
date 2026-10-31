@@ -1,0 +1,22 @@
+# Deploys the site to Firebase Hosting (project: society-of-strength).
+# Every push to main goes live. The service-account key lives only in the
+# GitHub repo secret FIREBASE_SERVICE_ACCOUNT_SOCIETY_OF_STRENGTH.
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SOCIETY_OF_STRENGTH }}
+          projectId: society-of-strength
+          channelId: live
