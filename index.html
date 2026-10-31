@@ -43,6 +43,7 @@ body{margin:0;background:var(--c-bg);color:var(--c-ivory);font:300 1rem/1.75 var
 h1,h2,h3,p,ul,ol,figure{margin:0}
 ul,ol{padding:0;list-style:none}
 img{display:block;max-width:100%;height:auto}
+[hidden]{display:none!important}   /* author display rules must never un-hide [hidden] elements */
 a{color:inherit}
 ::selection{background:var(--c-accent);color:var(--c-ivory)}
 
@@ -500,9 +501,9 @@ section{position:relative}
      CONFIG — fill these in. Anything left empty is handled safely.
      ====================================================================== */
   var CONFIG = {
-    // Email capture endpoint. Formspree: 'https://formspree.io/f/XXXXXXXX'.
+    // Email capture endpoint (Formspree).
     // (For Mailchimp/ConvertKit/Firestore, swap the submit() body below.)
-    FORM_ENDPOINT: '',
+    FORM_ENDPOINT: 'https://formspree.io/f/xjyyayjv',
     INSTAGRAM_URL: '',      // e.g. 'https://www.instagram.com/<handle>'
     CONTACT_EMAIL: 'membership@societyofstrength.com'
   };
