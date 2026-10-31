@@ -47,9 +47,9 @@ a{color:inherit}
 ::selection{background:var(--c-accent);color:var(--c-ivory)}
 
 /* Aged-film grain over the whole page (static, very quiet) */
-body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.07;mix-blend-mode:screen;
+body::before{content:"";position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.07;mix-blend-mode:screen;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-#page{position:relative;z-index:2}
+#page{position:relative}   /* no z-index: keeps the wordmark's blend mode able to see the real page background */
 
 :focus{outline:none}
 :focus-visible{outline:1px solid var(--c-ivory);outline-offset:4px}
@@ -80,7 +80,7 @@ h2.head{font-size:clamp(1.7rem,5.2vw,3.1rem);letter-spacing:.16em}
 /* ---- Wordmark component (img with a typographic fallback) ---- */
 .wordmark{position:relative;display:block;margin-inline:auto}
 .wm-crop{display:block;aspect-ratio:1260/500;overflow:hidden}
-.wm-crop img{width:121.9%;max-width:none;height:auto;margin:-18.33% 0 0 -11.43%}  /* crops the SVG's padding; divider sits at 58.2% of the box */
+.wm-crop img{width:121.9%;max-width:none;height:auto;margin:-18.33% 0 0 -11.43%;filter:contrast(1.12)}   /* floors the PNG's near-black backdrop (max 11/255) to pure black so it blends away */  /* crops the artwork's empty padding; divider sits at 58.2% of the box */
 .wm-text{display:none;text-align:center;font-family:var(--f-head);text-transform:uppercase;color:var(--c-ivory);line-height:1}
 .wm-text b{display:block;font-weight:500;font-size:clamp(2.2rem,9.5vw,5.6rem);letter-spacing:.16em;padding-left:.16em}
 .wm-text i{display:flex;align-items:center;justify-content:center;gap:1.1em;font-style:normal;font-size:clamp(.8rem,2.4vw,1.2rem);letter-spacing:.4em;padding-left:.4em;margin:.9em 0}
@@ -123,7 +123,7 @@ h2.head{font-size:clamp(1.7rem,5.2vw,3.1rem);letter-spacing:.16em}
   100%{opacity:0;filter:blur(14px);letter-spacing:.16em;padding-left:.16em}
 }
 
-.s-final{position:absolute;left:50%;top:50%;width:min(84vw,680px);opacity:0;transform:translate(-50%,-58.2%) scale(.97);filter:blur(6px);   /* divider (58.2% down the box) lands on the splash line at 50% */
+.s-final{position:absolute;left:50%;top:50%;width:84vw;max-width:680px;mix-blend-mode:lighten;opacity:0;transform:translate(-50%,-58.2%) scale(.97);filter:blur(6px);   /* divider (58.2% down the box) lands on the splash line at 50% */
   transition:opacity 1.2s ease,transform 1.6s var(--ease),filter 1.2s ease}
 .st-logo .s-final{opacity:1;transform:translate(-50%,-58.2%);filter:none}
 .s-tag{position:absolute;top:100%;left:0;right:0;margin-top:clamp(1.4rem,4vw,2.4rem);text-align:center;
@@ -165,7 +165,7 @@ section{position:relative}
 .hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
   padding:6.5rem var(--pad) 5rem;overflow:hidden;
   background:radial-gradient(ellipse 80% 55% at 50% 108%,rgba(142,27,30,.28),transparent 70%),radial-gradient(ellipse 60% 40% at 50% 38%,#131315,transparent 75%)}
-.hero .wordmark{width:min(88vw,720px)}
+.hero .wordmark{width:88vw;max-width:720px;mix-blend-mode:lighten}   /* lighten: the PNG's near-black backdrop drops out over the hero gradient */
 .hero-tag{margin-top:clamp(2rem,5vw,3.2rem);font-family:var(--f-head);font-size:clamp(.74rem,2.4vw,1.05rem);letter-spacing:.36em;padding-left:.36em;text-transform:uppercase}
 .hero .taper{margin-top:1.8rem}
 .hero-date{margin-top:1.5rem;font-size:.74rem;letter-spacing:.4em;padding-left:.4em;text-transform:uppercase;color:var(--c-mute);font-weight:400}
@@ -298,7 +298,7 @@ section{position:relative}
 
   <div class="s-final">
     <div class="wordmark" role="img" aria-label="Society of Strength">
-      <span class="wm-crop"><img src="img/SOS_full_textured.svg" alt="" width="1536" height="1024" onerror="this.closest('.wordmark').classList.add('no-img')"></span>
+      <span class="wm-crop"><img src="img/SOS_original_hero_3072.png" alt="" width="3072" height="2048" decoding="async" onerror="this.closest('.wordmark').classList.add('no-img')"></span>
       <div class="wm-text" aria-hidden="true"><b>Society</b><i>of</i><b>Strength</b></div>
     </div>
     <p class="s-tag">Privilege is earned, not born.</p>
@@ -328,7 +328,7 @@ section{position:relative}
 <!-- ======================= HERO ======================= -->
 <section class="hero" aria-labelledby="hero-title">
   <h1 id="hero-title" class="wordmark" role="img" aria-label="Society of Strength">
-    <span class="wm-crop"><img src="img/SOS_full_textured.svg" alt="" width="1536" height="1024" onerror="this.closest('.wordmark').classList.add('no-img')"></span>
+    <span class="wm-crop"><img src="img/SOS_original_hero_3072.png" alt="" width="3072" height="2048" decoding="async" onerror="this.closest('.wordmark').classList.add('no-img')"></span>
     <span class="wm-text" aria-hidden="true"><b>Society</b><i>of</i><b>Strength</b></span>
   </h1>
   <p class="hero-tag">Privilege is earned, not born.</p>
