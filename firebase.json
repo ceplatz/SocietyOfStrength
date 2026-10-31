@@ -7,16 +7,27 @@
       "**/.*",
       "**/node_modules/**",
       "img/SOS_monogram_source.png",
-      "img/SOS_full_clean.svg"
+      "img/SOS_full_clean.svg",
+      "img/SOS_original_hero_3072.png"
     ],
     "headers": [
       {
         "source": "**/*.@(html)",
-        "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
       },
       {
         "source": "/img/**",
-        "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          }
+        ]
       }
     ]
   }
